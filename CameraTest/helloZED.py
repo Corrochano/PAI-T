@@ -1,5 +1,7 @@
 # Source ----> https://www.stereolabs.com/docs/tutorials/hello-zed
 
+import pyzed.sl as sl
+
 # Create a ZED camera object
 zed = sl.Camera()
 
