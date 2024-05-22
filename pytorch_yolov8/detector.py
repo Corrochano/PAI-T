@@ -23,10 +23,10 @@ def xywh2abcd(xywh, im_shape):
     output = np.zeros((4, 2))
 
     # Center / Width / Height -> BBox corners coordinates
-    x_min = (xywh[0] - 0.5*xywh[2]) #* im_shape[1]
-    x_max = (xywh[0] + 0.5*xywh[2]) #* im_shape[1]
-    y_min = (xywh[1] - 0.5*xywh[3]) #* im_shape[0]
-    y_max = (xywh[1] + 0.5*xywh[3]) #* im_shape[0]
+    x_min = (xywh[0] - 0.5*xywh[2]) * 1280  /  im_shape[1]
+    x_max = (xywh[0] + 0.5*xywh[2]) * 1280  /  im_shape[1]
+    y_min = (xywh[1] - 0.5*xywh[3]) * 720 /  im_shape[0] 
+    y_max = (xywh[1] + 0.5*xywh[3]) * 720 /  im_shape[0] 
 
     # A ------ B
     # | Object |
@@ -70,11 +70,8 @@ def torch_thread(weights, img_size, conf_thres=0.2, iou_thres=0.45):
     while not exit_signal:
         if run_signal:
             lock.acquire()
-
-            img = cv2.cvtColor(image_net, cv2.COLOR_BGRA2RGB)
             # https://docs.ultralytics.com/modes/predict/#video-suffixes
-            det = model.predict(img, save=False, imgsz=img_size, conf=conf_thres, iou=iou_thres)[0].cpu().numpy().boxes
-
+            det = model.predict(image_net, save=False,imgsz=img_size, conf=conf_thres, iou=iou_thres, half=True)[0].cpu().numpy().boxes
             # ZED CustomBox format (with inverse letterboxing tf applied)
             detections = detections_to_custom_box(det, image_net)
             lock.release()
@@ -84,6 +81,9 @@ def torch_thread(weights, img_size, conf_thres=0.2, iou_thres=0.45):
 
 def main():
     global image_net, exit_signal, run_signal, detections
+    #Activar tensor cores
+    torch.backends.cuda.matmul.allow_tf32 = True
+    #torch.backends.cudnn.allow_tf32 = True
 
     capture_thread = Thread(target=torch_thread, kwargs={'weights': opt.weights, 'img_size': opt.img_size, "conf_thres": opt.conf_thres})
     capture_thread.start()
@@ -101,7 +101,7 @@ def main():
     init_params.coordinate_units = sl.UNIT.METER
     init_params.depth_mode = sl.DEPTH_MODE.PERFORMANCE  # QUALITY
     init_params.coordinate_system = sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP
-    init_params.depth_maximum_distance = 50
+    init_params.depth_maximum_distance = 25
     init_params.camera_resolution = sl.RESOLUTION.HD720 # Use HD720 opr HD1200 video mode, depending on camera type.
 
     runtime_params = sl.RuntimeParameters()
@@ -158,6 +158,10 @@ def main():
             lock.acquire()
             zed.retrieve_image(image_left_tmp, sl.VIEW.LEFT)
             image_net = image_left_tmp.get_data()
+            image_net = cv2.cvtColor(image_net, cv2.COLOR_BGRA2RGB)
+            image_net = cv2.resize(image_net, (opt.img_size,opt.img_size), interpolation = cv2.INTER_CUBIC)
+            image_net = image_net.astype(np.float32)
+            #image_net = image_net / 255.0
             lock.release()
             run_signal = True
 
@@ -205,7 +209,7 @@ if __name__ == '__main__':
     parser.add_argument('--weights', type=str, default='best.pt', help='model.pt path(s)')
     parser.add_argument('--svo', type=str, default=None, help='optional svo file')
     parser.add_argument('--img_size', type=int, default=800, help='inference size (pixels)')
-    parser.add_argument('--conf_thres', type=float, default=0.4, help='object confidence threshold')
+    parser.add_argument('--conf_thres', type=float, default=0.7, help='object confidence threshold')
     opt = parser.parse_args()
 
     with torch.no_grad():
