@@ -5,7 +5,7 @@ Este proyecto consiste en la integración de un modelo de detección de objetos 
 El primer paso para lograr trabjar en la placa es flashearle el SO. Según comenta el fabricante en https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro esto se puede hacer por dos vías.
 Nosotros usamos una SD card, en la cual quemamos JetPAck 5.1.3 ya que, aunque ya se disponía de Jetpack 6.0, el mismo fabricante comenta en https://www.jetson-ai-lab.com/initial_setup_jon.html que es necesario flashear la versión 5.1.3 para que se pueda actualizar el firmware.
 
-## Repositorio de GitLAb con los modelos
+## Repositorio de GitLab con los modelos
 Se han probado los modelos realizados por José Luís Mela Navarro, que se encuentran en el siguiente enlace: https://gitlab.com/Ljmn30/tfm
 
 ## Instalación de la librería zedsl
