@@ -44,6 +44,9 @@ En el mismo, se explica que se debe descargar el repositorio de OpenCV y cambiar
 
 Se instaló OpenCV 4.5.4
 
+Si se necesita otra versión específica, se pueden encontrar todos los whl en el siguiente enlace: https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
+En esa misma página en el apartado de installation, se explica a fondo la instalación de torchvision.
+
 ## Conversión a TensorRT
 
 Para la conversión de Pytorch a TensorRT de los modelos, se siguió su apartado en el siguiente tutorial: https://docs.ultralytics.com/guides/nvidia-jetson/#install-onnxruntime-gpu
