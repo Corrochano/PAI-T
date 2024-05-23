@@ -1,4 +1,4 @@
-# Integración de YOLO en la Nvidia Jetson Orin Nano
+# Integración de YOLO en Nvidia Jetson Orin Nano
 Este proyecto consiste en la integración de un modelo de detección de objetos en un embalse (barcos, surfistas, etc) en una Nvidida Jetson Orin Nano que lleva una cámara Zed 2I.
 
 ## Inicializar la placa
