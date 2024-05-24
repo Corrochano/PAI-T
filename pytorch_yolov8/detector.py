@@ -161,7 +161,6 @@ def main():
             image_net = cv2.cvtColor(image_net, cv2.COLOR_BGRA2RGB)
             image_net = cv2.resize(image_net, (opt.img_size,opt.img_size), interpolation = cv2.INTER_CUBIC)
             image_net = image_net.astype(np.float32)
-            #image_net = image_net / 255.0
             lock.release()
             run_signal = True
 
@@ -206,9 +205,9 @@ def main():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default='best.pt', help='model.pt path(s)')
-    parser.add_argument('--svo', type=str, default=None, help='optional svo file')
-    parser.add_argument('--img_size', type=int, default=800, help='inference size (pixels)')
+    parser.add_argument('--weights', type=str, default='yolov8n.engine', help='model.pt path(s)')
+    parser.add_argument('--svo', type=str, default=None, help='optional svo file') # './campillo-12-04-24-001.svo'
+    parser.add_argument('--img_size', type=int, default=640, help='inference size (pixels)')
     parser.add_argument('--conf_thres', type=float, default=0.7, help='object confidence threshold')
     opt = parser.parse_args()
 
