@@ -14,6 +14,7 @@
 
 using namespace nvinfer1;
 using namespace std;
+using namespace chrono;
 #define NMS_THRESH 0.4
 #define CONF_THRESH 0.3
 
@@ -156,9 +157,12 @@ int main(int argc, char** argv) {
             // Get image for inference
             zed.retrieveImage(left_sl, sl::VIEW::LEFT);
 
+            auto start = high_resolution_clock::now();
             // Running inference
             auto detections = detector.run(left_sl, display_resolution.height, display_resolution.width, CONF_THRESH);
-
+            auto stop = high_resolution_clock::now();
+            auto duration = duration_cast<milliseconds>(stop - start);
+            cout << "Total time (inference + processing): "<< duration.count() << " ms" <<endl;
             // Get image for display
             left_cv = slMat2cvMat(left_sl);
 
@@ -181,14 +185,11 @@ int main(int argc, char** argv) {
             // Retrieve the tracked objects, with 2D and 3D attributes
             zed.retrieveObjects(objects, objectTracker_parameters_rt);
 
-            cout << objects.object_list.size() << endl;
-
             // Displaying 'raw' objects
             for (size_t j = 0; j < objects.object_list.size(); j++) {
                 cv::Rect r = get_rect(objects.object_list[j].bounding_box_2d);
                 cv::rectangle(left_cv, r, cv::Scalar(0x27, 0xC1, 0x36), 2);
-                cout << j << endl;
-                cv::putText(left_cv, class_names[objects.object_list[j].raw_label] + " Distance: " + to_string(round(abs(objects.object_list.at(j).position[2]) * 10.0) / 10.0), cv::Point(r.x, r.y - 1), cv::FONT_HERSHEY_PLAIN, 1.2, cv::Scalar(0xFF, 0xFF, 0xFF), 2);
+                cv::putText(left_cv, class_names[objects.object_list[j].raw_label] + " Distance: " + to_string(round(abs(objects.object_list.at(j).position[2]) * 10.0) / 10.0), cv::Point(r.x, r.y - 1), cv::FONT_HERSHEY_SIMPLEX, 1.2, cv::Scalar(0x00, 0x00, 0xFF), 2);
                //cout << class_names[detections[j].label] << endl;
             }
             

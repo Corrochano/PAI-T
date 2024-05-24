@@ -2,6 +2,8 @@
 #include "NvOnnxParser.h"
 
 using namespace nvinfer1;
+using namespace std;
+using namespace chrono;
 
 static Logger gLogger;
 
@@ -335,6 +337,7 @@ std::vector<BBoxInfo> Yolo::run(sl::Mat left_sl, int orig_image_h, int orig_imag
         }
     }
 
+    auto start = high_resolution_clock::now();
     /////// INFERENCE
     // DMA input batch data to device, infer on the batch asynchronously, and DMA output back to host
     CUDA_CHECK(cudaMemcpyAsync(d_input, h_input, batch_size * 3 * frame_s * sizeof (float), cudaMemcpyHostToDevice, stream));
@@ -347,7 +350,9 @@ std::vector<BBoxInfo> Yolo::run(sl::Mat left_sl, int orig_image_h, int orig_imag
     CUDA_CHECK(cudaMemcpyAsync(h_output, d_output, batch_size * output_size * sizeof (float), cudaMemcpyDeviceToHost, stream));
     cudaStreamSynchronize(stream);
 
-
+    auto stop = high_resolution_clock::now();
+            auto duration = duration_cast<milliseconds>(stop - start);
+            cout << "Inference time: "<< duration.count() << " ms" << endl;
     /////// Extraction
 
     float scalingFactor = std::min(static_cast<float> (input_width) / orig_image_w, static_cast<float> (input_height) / orig_image_h);
