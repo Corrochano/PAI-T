@@ -71,11 +71,17 @@ results = trt_model("https://ultralytics.com/images/bus.jpg")
 Para que un modelo se ejecute correctamente en C++ hay primero que pasarlo a TensorRT mediante el mismo programa de la siguiente manera:
 
 ```
-./yolo_onnx_zed -s yolov6s.onnx yolov6s.engine
+./yolo_onnx_zed -s tuArchivo.onnx nombreDeseado.engine
 ```
 
 Luego para ejecutar usamos el siguente comando:
 
 ```
-./yolo_onnx_zed yolov6s.engine 0
+./yolo_onnx_zed tuArchivo.engine 0
+```
+
+Para ejcutar con vídeo, ejecutamos el siguiente comando:
+
+```
+./yolo_onnx_zed tuArchivo.engine ./tuArchivo.svo
 ```
