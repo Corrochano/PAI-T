@@ -66,3 +66,16 @@ trt_model = YOLO("yolov8n.engine")
 # Run inference
 results = trt_model("https://ultralytics.com/images/bus.jpg")
 ```
+
+## Versión C++
+Para que un modelo se ejecute correctamente en C++ hay primero que pasarlo a TensorRT mediante el mismo programa de la siguiente manera:
+
+```
+./yolo_onnx_zed -s yolov6s.onnx yolov6s.engine
+```
+
+Luego para ejecutar usamos el siguente comando:
+
+```
+./yolo_onnx_zed yolov6s.engine 0
+```
