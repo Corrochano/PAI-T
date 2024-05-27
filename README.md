@@ -83,5 +83,5 @@ Luego para ejecutar usamos el siguente comando:
 Para ejcutar con vídeo, ejecutamos el siguiente comando:
 
 ```
-./yolo_onnx_zed tuArchivo.engine ./tuArchivo.svo
+./yolo_onnx_zed tuArchivo.engine tuArchivo.svo
 ```
