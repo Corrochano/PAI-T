@@ -20,7 +20,7 @@ def graficar_lista(valores):
     plt.plot(x, y)
     
     # rango y
-    plt.ylim(min(y) - 50, max(y) + 50)
+    plt.ylim(1500, 2300)
 
     # Agregar títulos y etiquetas
     plt.title('Consumo energético de ' + model + 'en ' + watios)
@@ -33,11 +33,18 @@ def graficar_todos():
 
     graficar_cpp()
     graficar_python()
+
+    graficar_15w_barras()
+    graficar_7w_barras()
+
+    graficar_cpp_barras()
+    graficar_python_barras()
     
 def graficar_15w():
 
     plt.figure(figsize=(12, 6)) 
-    
+    plt.ylim(1500, 2300)
+
     # Generar la gráfica
     plt.plot(allValues[0][0][0], label='Python - yolov8m', color='#0000FF', linestyle='-')
     plt.plot(allValues[0][0][1], label='Python - yolov8n', color='#000099', linestyle=':')
@@ -58,7 +65,7 @@ def graficar_15w():
 def graficar_7w():
 
     plt.figure(figsize=(12, 6)) 
-    
+    plt.ylim(1500, 2300)
     # Generar la gráfica
     plt.plot(allValues[0][1][0], label='Python - yolov8m', color='#0000FF', linestyle='-')
     plt.plot(allValues[0][1][1], label='Python - yolov8n', color='#000099', linestyle=':')
@@ -78,7 +85,7 @@ def graficar_7w():
 
 def graficar_cpp():
     plt.figure(figsize=(12, 6)) 
-    
+    plt.ylim(1500, 2300)
     # Generar la gráfica
     plt.plot(allValues[1][0][0], label='15W - yolov8m', color='#0000FF', linestyle='-')
     plt.plot(allValues[1][0][1], label='15W - yolov8n', color='#000099', linestyle=':')
@@ -98,7 +105,7 @@ def graficar_cpp():
 
 def graficar_python():
     plt.figure(figsize=(12, 6)) 
-    
+    plt.ylim(1500, 2300)
     # Generar la gráfica
     plt.plot(allValues[0][0][0], label='15W - yolov8m', color='#0000FF', linestyle='-')
     plt.plot(allValues[0][0][1], label='15W - yolov8n', color='#000099', linestyle=':')
@@ -113,6 +120,105 @@ def graficar_python():
     
     plt.legend()
     plt.savefig('python.png')
+    #plt.show()
+    plt.clf()
+
+def graficar_15w_barras():
+    
+    plt.figure(figsize=(12, 6)) 
+    plt.ylim(1500, 2300)
+    mean_list = [sum(allValues[0][0][0])/len(allValues[0][1][0]),
+                 sum(allValues[0][0][2])/len(allValues[0][1][2]), 
+                 sum(allValues[0][0][1])/len(allValues[0][1][1]),
+                 sum(allValues[1][0][0])/len(allValues[1][1][0]),
+                 sum(allValues[1][0][2])/len(allValues[1][1][2]),
+                 sum(allValues[1][0][1])/len(allValues[1][1][1])
+                 ]
+
+    plt.bar(['Python-yolov8m', 'Python-yolov8s', 'Python-yolov8n', 'C++-yolov8m', 'C++-yolov8s','C++-yolov8n'], 
+            mean_list,    
+            color=['red', 'blue', 'green', 'purple','yellow', 'orange'], width=0.5)
+    
+    plt.title('Consumo Medio en 15W' )
+    plt.xlabel('Red y Lenguaje Usados')
+    plt.ylabel('Consumo (mW)')
+    
+    plt.legend()
+    plt.savefig('15wBarras.png')
+    #plt.show()
+    plt.clf()
+
+def graficar_7w_barras():
+
+    plt.figure(figsize=(12, 6)) 
+    plt.ylim(1500, 2300)
+    mean_list = [sum(allValues[0][1][0])/len(allValues[0][1][0]),
+                 sum(allValues[0][1][2])/len(allValues[0][1][2]), 
+                 sum(allValues[0][1][1])/len(allValues[0][1][1]),
+                 sum(allValues[1][1][0])/len(allValues[1][1][0]),
+                 sum(allValues[1][1][2])/len(allValues[1][1][2]),
+                 sum(allValues[1][1][1])/len(allValues[1][1][1])]
+    #mean_list.sort()
+
+    plt.bar(['Python-yolov8m', 'Python-yolov8s','Python-yolov8n', 'C++-yolov8m', 'C++-yolov8s', 'C++-yolov8n'], 
+            mean_list,    
+            color=['red', 'blue', 'green', 'purple','yellow', 'orange'], width=0.5)
+    
+    plt.title('Consumo Medio en 7W' )
+    plt.xlabel('Red y Lenguaje Usados')
+    plt.ylabel('Consumo (mW)')
+    
+    plt.legend()
+    plt.savefig('7wBarras.png')
+    #plt.show()
+    plt.clf()
+
+def graficar_cpp_barras():
+
+    plt.figure(figsize=(12, 6)) 
+    plt.ylim(1500, 2300)
+    mean_list = [sum(allValues[1][0][0])/len(allValues[1][0][0]),
+                 sum(allValues[1][0][2])/len(allValues[1][0][2]), 
+                 sum(allValues[1][0][1])/len(allValues[1][0][1]),
+                 sum(allValues[1][1][0])/len(allValues[1][1][0]),
+                 sum(allValues[1][1][2])/len(allValues[1][1][2]),
+                 sum(allValues[1][1][1])/len(allValues[1][1][1])]
+
+    plt.bar(['15W-yolov8m', '15W-yolov8s', '15W-yolov8n', '7W-yolov8m', '7W-yolov8s', '7W-yolov8n'], 
+            mean_list,    
+            color=['red', 'blue', 'green', 'purple','yellow', 'orange'], width=0.5)
+    
+    plt.title('Consumo Medio en C++' )
+    plt.xlabel('Red y Lenguaje Usados')
+    plt.ylabel('Consumo (mW)')
+    
+    #plt.legend()
+    plt.savefig('cppBarras.png')
+    #plt.show()
+    plt.clf()
+
+def graficar_python_barras():
+
+    plt.figure(figsize=(12, 6)) 
+    plt.ylim(1500, 2300)
+    mean_list = [sum(allValues[0][0][0])/len(allValues[0][0][0]), 
+                 sum(allValues[0][0][2])/len(allValues[0][0][2]), 
+                 sum(allValues[0][0][1])/len(allValues[0][0][1]),
+                 sum(allValues[0][1][0])/len(allValues[0][1][0]),
+                 sum(allValues[0][1][2])/len(allValues[0][1][2]),
+                 sum(allValues[0][1][1])/len(allValues[0][1][1])]
+    #mean_list.sort()
+
+    plt.bar(['15W-yolov8m', '15W-yolov8s', '15W-yolov8n', '7W-yolov8m', '7W-yolov8s', '7W-yolov8n'], 
+            mean_list,    
+            color=['red', 'blue', 'green', 'purple','yellow', 'orange'], width=0.5)
+    
+    plt.title('Consumo Medio en Python' )
+    plt.xlabel('Red y Lenguaje Usados')
+    plt.ylabel('Consumo (mW)')
+    
+    plt.legend()
+    plt.savefig('pythonBarras.png')
     #plt.show()
     plt.clf()
     
@@ -199,7 +305,7 @@ def listar_archivos_y_subcarpetas(ruta_carpeta):
                     leer_datos(ruta)
 
 # Ejemplo de uso
-ruta_carpeta = './Measure/'
+ruta_carpeta = './scriptResult/'
 listar_archivos_y_subcarpetas(ruta_carpeta)
 
 graficar_todos()
