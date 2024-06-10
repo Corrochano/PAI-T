@@ -110,7 +110,8 @@ Para ejcutar con vídeo, ejecutamos el siguiente comando:
 ```
 ## TrtExec
 
-Se ejecutó TrtExec, que se descargó de la siguiente web: https://developer.nvidia.com/tensorrt
+Se ejecutó TrtExec para medir los ms de inferencia y también para crear un archivo engine lo más eficiente posible.
+TrtExec se descargó de la siguiente web: https://developer.nvidia.com/tensorrt
 
 Para ejecutarlo, nos vamos a la dirección donde lo hayamos instalado (ennuestro caso, /usr/src/tensorrt/bin/):
 
@@ -124,4 +125,9 @@ Por ejemplo, si queremos ejecutar el modelo yolov8n.engine que tenemos en /home/
 
 ```
 ./trtexec /home/nano/cppFolder/build/yolov8n.engine
+```
+Se crearon archivos .engine con el flag best, que cuantiza los pesos de la forma más eficiente. 
+El comando utilizado fue:
+```
+./trtexec --onnx=tuArchivo.onnx --saveEngine=comoLoQuierasGuardar.engine --best
 ```
