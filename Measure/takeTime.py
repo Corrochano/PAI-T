@@ -392,6 +392,30 @@ def leer_datos_best(ruta):
 
     f.close()
 
+    print('Tiempo Total:')
+    print('Maximo: ', max(totalTimeList))
+    print('Minimo: ', min(totalTimeList))
+    print('Media: ', sum(totalTimeList) / len(totalTimeList))
+    print('-----------------------')
+
+    print('Tiempo Distancia:')
+    print('Maximo: ', max(distanceTimeList))
+    print('Minimo: ', min(distanceTimeList))
+    print('Media: ', sum(distanceTimeList) / len(distanceTimeList))
+    print('-----------------------')
+
+    print('Tiempo Captura:')
+    print('Maximo: ', max(captureTimeList))
+    print('Minimo: ', min(captureTimeList))
+    print('Media: ', sum(captureTimeList) / len(captureTimeList))
+    print('-----------------------')
+
+    print('Tiempo Inferencia:')
+    print('Maximo: ', max(inferenceTimeList))
+    print('Minimo: ', min(inferenceTimeList))
+    print('Media: ', sum(inferenceTimeList) / len(inferenceTimeList))
+    print('-----------------------')
+
     # Siempre C++
     if '15' in ruta:
         if('yolov8m' in ruta):
