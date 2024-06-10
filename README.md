@@ -5,6 +5,29 @@ Este proyecto consiste en la integración de un modelo de detección de objetos 
 El primer paso para lograr trabjar en la placa es flashearle el SO. Según comenta el fabricante en https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro esto se puede hacer por dos vías.
 Nosotros usamos una SD card, en la cual quemamos JetPAck 5.1.3 ya que, aunque ya se disponía de Jetpack 6.0, el mismo fabricante comenta en https://www.jetson-ai-lab.com/initial_setup_jon.html que es necesario flashear la versión 5.1.3 para que se pueda actualizar el firmware.
 
+## Cambiar modo de energía
+LA Nvidia Jetson Orin NAno permite operart en dos modos de energía distintos: 7W y 15W.
+
+Si queremos comprobar en que modo estamos, esto lo podemos comprobar en la parte superior derecha, lugar donde también podemos cambiar el modo.
+
+Si queremos hacer la comprobación por línea de comandos, ejecutamos el siguiente comando:
+
+```
+sudo nvpmodel -q
+```
+
+O este otro, el cual mira el directorio por defecto donde se encuentran estos modos configurados:
+```
+sudo /usr/sbin/nvpmodel -q
+```
+
+Para cambiar de modo ejecutamos el siguiente comando:
+```
+sudo nvpmodel -m 1
+```
+
+  Donde 1 es el modo 7W. PAra cambiar a 15W, ejecutamos ese mismo comando pero indicando -m 0.
+
 ## Repositorio de GitLab con los modelos
 Se han probado los modelos realizados por José Luís Mela Navarro, que se encuentran en el siguiente enlace: https://gitlab.com/Ljmn30/tfm
 
@@ -84,4 +107,21 @@ Para ejcutar con vídeo, ejecutamos el siguiente comando:
 
 ```
 ./yolo_onnx_zed tuArchivo.engine tuArchivo.svo
+```
+## TrtExec
+
+Se ejecutó TrtExec, que se descargó de la siguiente web: https://developer.nvidia.com/tensorrt
+
+Para ejecutarlo, nos vamos a la dirección donde lo hayamos instalado (ennuestro caso, /usr/src/tensorrt/bin/):
+
+```
+cd /usr/src/tensorrt/bin/
+```
+
+Y una vez allí, ejecutamos el modelo deseado con el flag --loadEngine. 
+
+Por ejemplo, si queremos ejecutar el modelo yolov8n.engine que tenemos en /home/nano/cppFolder/build/ haríamos lo siguiente:
+
+```
+./trtexec /home/nano/cppFolder/build/yolov8n.engine
 ```
