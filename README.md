@@ -6,7 +6,7 @@ Este repositorio ha sido creado por Álvaro Corrochano López y Iulius Gherasim.
 
 ## Inicializar la placa
 El primer paso para lograr trabjar en la placa es flashearle el SO. Según comenta el fabricante en https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit#intro esto se puede hacer por dos vías.
-Nosotros usamos una SD card, en la cual quemamos JetPAck 5.1.3 ya que, aunque ya se disponía de Jetpack 6.0, el mismo fabricante comenta en https://www.jetson-ai-lab.com/initial_setup_jon.html que es necesario flashear la versión 5.1.3 para que se pueda actualizar el firmware.
+Nosotros usamos una SD card, en la cual quemamos JetPack 5.1.3 ya que, aunque ya se disponía de Jetpack 6.0, el mismo fabricante comenta en https://www.jetson-ai-lab.com/initial_setup_jon.html que es necesario flashear la versión 5.1.3 para que se pueda actualizar el firmware.
 
 ## Cambiar modo de energía
 LA Nvidia Jetson Orin NAno permite operart en dos modos de energía distintos: 7W y 15W.
@@ -45,7 +45,7 @@ Una vez en el directorio, ejecutamos "python3 get_python_api.py"
 Para ello, se puede seguir el siguiente tutorial: https://www.stereolabs.com/docs/app-development/python/install
 
 ## Instalación de PyTorch
-PAra la instalación de tanto Pytorch como torchvision se debe seguir el siguiente tutorial para poder utilizar cuda: https://docs.ultralytics.com/guides/nvidia-jetson/#install-pytorch-and-torchvision
+Para la instalación de tanto Pytorch como torchvision se debe seguir el siguiente tutorial para poder utilizar cuda: https://docs.ultralytics.com/guides/nvidia-jetson/#install-pytorch-and-torchvision
 
 En el mismo, se especifica que se debe descargar una versión de pytorch específica para la placa y clonar un repositorio con el que se buildea la versión especifica de torchvision.
 
@@ -67,8 +67,9 @@ python3 setup.py install --user
 Para activar OpenCV cpn CUDA se usó el siguiente tutorial: https://jetsonhacks.com/2023/11/07/opencv-with-cuda-in-python-on-jetson/
 
 En el mismo, se explica que se debe descargar el repositorio de OpenCV y cambiar el script de instalación a nuestros requisitos específicos.
+En nuestro caso, tenemos CUDA 11.8.89 ya que es la versión más reciente que nos permite tener Jestpack 5.1.3 a fecha actual. TAmbién se tiene instalado Python 3.8.10.
 
-Se instaló OpenCV 4.5.4
+Por ello, se instaló OpenCV 4.5.4
 
 Si se necesita otra versión específica, se pueden encontrar todos los whl en el siguiente enlace: https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
 En esa misma página en el apartado de installation, se explica a fondo la instalación de torchvision.
