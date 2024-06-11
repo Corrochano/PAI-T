@@ -131,3 +131,14 @@ El comando utilizado fue:
 ```
 ./trtexec --onnx=tuArchivo.onnx --saveEngine=comoLoQuierasGuardar.engine --best
 ```
+## Tegrastats
+Tegrastats es una herramienta que nos permite visualizar el consumo energético de la placa.
+Se debe lanzar con sudo para que muestre todos los detalles:
+
+```
+sudo tegrastats
+```
+Adicionalmente, se puede indicar que mida los datos cada x milisegundos que queramos de la siguiente forma:
+```
+sudo tegrastats --interval x
+```
