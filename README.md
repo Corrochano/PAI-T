@@ -23,10 +23,10 @@ sudo /usr/sbin/nvpmodel -q
 
 Para cambiar de modo ejecutamos el siguiente comando:
 ```
-sudo nvpmodel -m 1
+sudo nvpmodel -m x
 ```
 
-  Donde 1 es el modo 7W. PAra cambiar a 15W, ejecutamos ese mismo comando pero indicando -m 0.
+Donde 1 es el modo 7W y 0 el modo 15W.
 
 ## Repositorio de GitLab con los modelos
 Se han probado los modelos realizados por José Luís Mela Navarro, que se encuentran en el siguiente enlace: https://gitlab.com/Ljmn30/tfm
@@ -113,7 +113,7 @@ Para ejcutar con vídeo, ejecutamos el siguiente comando:
 Se ejecutó TrtExec para medir los ms de inferencia y también para crear un archivo engine lo más eficiente posible.
 TrtExec se descargó de la siguiente web: https://developer.nvidia.com/tensorrt
 
-Para ejecutarlo, nos vamos a la dirección donde lo hayamos instalado (ennuestro caso, /usr/src/tensorrt/bin/):
+Para ejecutarlo, nos vamos a la dirección donde lo hayamos instalado (la ruta por defecto es /usr/src/tensorrt/bin/):
 
 ```
 cd /usr/src/tensorrt/bin/
@@ -121,10 +121,8 @@ cd /usr/src/tensorrt/bin/
 
 Y una vez allí, ejecutamos el modelo deseado con el flag --loadEngine. 
 
-Por ejemplo, si queremos ejecutar el modelo yolov8n.engine que tenemos en /home/nano/cppFolder/build/ haríamos lo siguiente:
-
 ```
-./trtexec /home/nano/cppFolder/build/yolov8n.engine
+./trtexec --loadEngine=tuModelo.engine
 ```
 Se crearon archivos .engine con el flag best, que cuantiza los pesos de la forma más eficiente. 
 El comando utilizado fue:
