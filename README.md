@@ -142,3 +142,12 @@ Adicionalmente, se puede indicar que mida los datos cada x milisegundos que quer
 ```
 sudo tegrastats --interval x
 ```
+
+Tegrastats, entre otras cosas, da tres valores de energía en la Jetson Orin nano: 
+- Vdd_in: Consumo total
+- Vdd-cpugpu: Consumo de la cpu y de la gpu
+- Vdd_soc: Consumo de otros componentes empotrados
+
+Se puede consultar más informacion sobre tegrastats en https://docs.nvidia.com/drive/drive_os_5.1.6.1L/nvvib_docs/index.html#page/DRIVE_OS_Linux_SDK_Development_Guide/Utilities/util_tegrastats.html#
+ó en https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html#reported-statistics
+
