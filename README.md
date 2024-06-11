@@ -144,9 +144,11 @@ sudo tegrastats --interval x
 ```
 
 Tegrastats, entre otras cosas, da tres valores de energía en la Jetson Orin nano: 
-- Vdd_in: Consumo total
-- Vdd-cpugpu: Consumo de la cpu y de la gpu
-- Vdd_soc: Consumo de otros componentes empotrados
+- VDD_IN: Consumo total
+- VDD_CPU_GPU_CV: Consumo de la cpu y de la gpu
+- VDD_SOC: Consumo de otros componentes empotrados
+
+Los tres campos tienen el valor puntual a la izquierda y la media de lo que se lleva ejecutando a la derecha de la forma xxxxmW/yyyymW.
 
 Se puede consultar más informacion sobre tegrastats en https://docs.nvidia.com/drive/drive_os_5.1.6.1L/nvvib_docs/index.html#page/DRIVE_OS_Linux_SDK_Development_Guide/Utilities/util_tegrastats.html#
 ó en https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html#reported-statistics
